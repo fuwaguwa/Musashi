@@ -63,13 +63,13 @@ export default new Event("messageCreate", async (message) =>
 			.then(res => res.json())
 			.then((json) => 
 			{
-				if (json.error) 
+				if (json.error && json.estimated_time) 
 				{
 					const loading: EmbedBuilder = new EmbedBuilder()
 						.setColor("Red")
 						.setDescription(
 							`Please wait for the bot to load up the model!\n` +
-								`Try chatting again after 30s-1m, that's how long the process usually takes!`
+								`Try chatting again after around 30s, that's how long the process usually takes!`
 						);
 					return message.reply({ embeds: [loading], });
 				}

@@ -30,7 +30,7 @@ export default new ChatInputCommand({
 		{
 			type: ApplicationCommandOptionType.Subcommand,
 			name: "help",
-			description: "How to talk with Musashi.",
+			description: "How to use and setup the bot.",
 		}
 	],
 	run: async ({ interaction, }) => 

@@ -99,6 +99,17 @@ export class Musashi extends Client
 				await (channel as TextChannel).send({ embeds: [heartbeatEmbed], });
 
 				uptime += 300000;
+
+				fetch(
+					`https://api-inference.huggingface.co/models/Fuwaguwa/DialoGPT-Medium-AzurLaneMusashi-v${process.env.version}`,
+					{
+						method: "POST",
+						headers: {
+							Authorization: `Bearer ${process.env.huggingfaceApiKey}`,
+						},
+						body: JSON.stringify({ inputs: "initialize", }),
+					}
+				);
 			}, 300000);
 		})();
 	}
