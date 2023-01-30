@@ -28,5 +28,5 @@ export default new Event("ready", async () =>
 		);
 	};
 	initialize();
-	setInterval(initialize, 120000);
+	// setInterval(initialize, 60000);
 });
