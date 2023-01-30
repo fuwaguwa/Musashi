@@ -14,14 +14,19 @@ export default new Event("ready", async () =>
 		type: ActivityType.Listening,
 	});
 
-	fetch(
-		`https://api-inference.huggingface.co/models/Fuwaguwa/DialoGPT-Medium-AzurLaneMusashi-v${process.env.modelVersion}`,
-		{
-			method: "POST",
-			headers: {
-				Authorization: `Bearer ${process.env.huggingfaceApiKey}`,
-			},
-			body: JSON.stringify({ inputs: "initialize", }),
-		}
-	);
+	const initialize = () => 
+	{
+		fetch(
+			`https://api-inference.huggingface.co/models/Fuwaguwa/DialoGPT-Medium-AzurLaneMusashi-v${process.env.modelVersion}`,
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${process.env.huggingfaceApiKey}`,
+				},
+				body: JSON.stringify({ inputs: "hello!", }),
+			}
+		);
+	};
+	initialize();
+	setInterval(initialize, 120000);
 });
