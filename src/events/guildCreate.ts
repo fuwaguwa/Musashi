@@ -7,6 +7,7 @@ import {
 	TextChannel
 } from "discord.js";
 import { client } from "..";
+import { updateServerCount } from "../lib/Utils";
 import { Event } from "../structures/Event";
 
 export default new Event("guildCreate", async (guild) => 
@@ -41,6 +42,7 @@ export default new Event("guildCreate", async (guild) =>
 				)
 				.setTimestamp();
 			await ioChannel.send({ embeds: [botAddEmbed], });
+			await updateServerCount();
 		});
 
 	/**

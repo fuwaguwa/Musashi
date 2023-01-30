@@ -1,5 +1,6 @@
 import { EmbedBuilder, Guild, TextChannel } from "discord.js";
 import { client } from "..";
+import { updateServerCount } from "../lib/Utils";
 import { Event } from "../structures/Event";
 
 export default new Event("guildDelete", async (guild) => 
@@ -20,4 +21,5 @@ export default new Event("guildDelete", async (guild) =>
 		})
 		.setTimestamp();
 	await ioChannel.send({ embeds: [kickedEmbed], });
+	await updateServerCount();
 });
