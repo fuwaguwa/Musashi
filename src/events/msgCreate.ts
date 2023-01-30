@@ -69,7 +69,7 @@ export default new Event("messageCreate", async (message) =>
 					const loading: EmbedBuilder = new EmbedBuilder()
 						.setColor("Red")
 						.setDescription(
-							"Please wait for the bot to load up the model!\nThe model usually unloads after 3-4m of inactivity."
+							"Please wait for the bot to load up the model! The model usually unloads after 3-4m."
 						)
 						.setFooter({
 							text: "Try chatting again after around 30s, that's how long the loading process usually takes!",
