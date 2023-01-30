@@ -17,7 +17,7 @@
     "description": "",
     "dependencies": {
         "discord.js": "^14.7.1",
-        "dotenv": "^10.0.0",
+        "dotenv": "^16.0.3",
         "glob": "^7.2.0",
         "mongoose": "^6.9.0",
         "ms": "^2.1.3",
