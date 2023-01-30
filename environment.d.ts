@@ -5,7 +5,7 @@ declare global {
 			guildId: string;
 			mongoDB: string;
 			huggingfaceApiKey: string;
-			version: number;
+			modelVersion: number;
 		}
 	}
 }

@@ -101,7 +101,7 @@ export class Musashi extends Client
 				uptime += 300000;
 
 				fetch(
-					`https://api-inference.huggingface.co/models/Fuwaguwa/DialoGPT-Medium-AzurLaneMusashi-v${process.env.version}`,
+					`https://api-inference.huggingface.co/models/Fuwaguwa/DialoGPT-Medium-AzurLaneMusashi-v${process.env.modelVersion}`,
 					{
 						method: "POST",
 						headers: {
