@@ -69,14 +69,12 @@ export default new Event("messageCreate", async (message) =>
 					const loading: EmbedBuilder = new EmbedBuilder()
 						.setColor("Red")
 						.setDescription(
-							`Please wait for the bot to load up the model! It usually unloads after 3-4m of inactivity.`
-						);
-					const loading2: EmbedBuilder = new EmbedBuilder()
-						.setColor("Red")
-						.setDescription(
-							`Try chatting again after around 30s, that's how long the loading process usually takes!`
-						);
-					return message.reply({ embeds: [loading, loading2], });
+							"Please wait for the bot to load up the model!\nThe model usually unloads after 3-4m of inactivity."
+						)
+						.setFooter({
+							text: "Try chatting again after around 30s, that's how long the loading process usually takes!",
+						});
+					return message.reply({ embeds: [loading], });
 				}
 				if (json.error) throw new Error(json.error);
 
