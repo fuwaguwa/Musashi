@@ -13,8 +13,10 @@ export = async (interaction: ChatInputCommandInteraction) =>
 		.setTitle("Musashi")
 		.setDescription(
 			"Musashi Azur Lane Chatbot!\n\n" +
+				"Trained with DialoGPT Model by Microsoft\n\n" +
 				"Developer: [**Fuwafuwa**](https://github.com/fuwaguwa)\n" +
-				`Trained with DialoGPT Model by Microsoft`
+				"Art by [Dishwasher1910](https://www.pixiv.net/en/users/13408193)\n" +
+				"Special Thanks: [**LaziestBoy**](https://github.com/kaisei-kto)\n"
 		);
 
 	const mainButtons: ActionRowBuilder<ButtonBuilder> =
