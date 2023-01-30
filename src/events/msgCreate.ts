@@ -10,6 +10,7 @@ export default new Event("messageCreate", async (message) =>
 	/**
 	 * Loading and checking
 	 */
+	if (message.member.user.bot) return;
 	if (message.member.id === client.user.id) return;
 	if (!message.content) return;
 
@@ -63,7 +64,6 @@ export default new Event("messageCreate", async (message) =>
 			.then(res => res.json())
 			.then((json) => 
 			{
-				if (json.error) throw new Error(json.error);
 				if (json.error && json.estimated_time) 
 				{
 					const loading: EmbedBuilder = new EmbedBuilder()
@@ -74,6 +74,7 @@ export default new Event("messageCreate", async (message) =>
 						);
 					return message.reply({ embeds: [loading], });
 				}
+				if (json.error) throw new Error(json.error);
 
 				return message.reply({ content: json.generated_text, });
 			})
