@@ -63,13 +63,14 @@ export default new Event("messageCreate", async (message) =>
 			.then(res => res.json())
 			.then((json) => 
 			{
+				if (json.error) throw new Error(json.error);
 				if (json.error && json.estimated_time) 
 				{
 					const loading: EmbedBuilder = new EmbedBuilder()
 						.setColor("Red")
 						.setDescription(
-							`Please wait for the bot to load up the model!\n` +
-								`Try chatting again after around 30s, that's how long the process usually takes!`
+							`Please wait for the bot to load up the model! It usually unloads after 3-4m of inactivity\n` +
+								`Try chatting again after around 30s, that's how long the loading process usually takes!`
 						);
 					return message.reply({ embeds: [loading], });
 				}
@@ -84,12 +85,14 @@ export default new Event("messageCreate", async (message) =>
 					return respond();
 				}
 
+				console.error(err);
 				return message.reply({
 					embeds: [
 						new EmbedBuilder()
 							.setColor("Red")
 							.setDescription(
-								`Encountered error while connecting to the API. Please retry or contact support using \`/musashi support\``
+								`Encountered error while connecting to the API. Please retry or contact support using \`/musashi support\`\n\n` +
+									`[${err.name}] ${err.message}`
 							)
 					],
 				});
