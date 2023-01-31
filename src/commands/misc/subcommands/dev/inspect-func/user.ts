@@ -14,7 +14,7 @@ export = async (interaction: ChatInputCommandInteraction) =>
 		.setDescription(
 			`User ID: **${userDB.userId}**\n` +
 				`Blacklisted: **${userDB.blacklisted || false}**\n` +
-				`Commands Executed: **${userDB.commandsExecuted}**` +
+				`Commands Executed: **${userDB.commandsExecuted}**\n` +
 				`Conversations with Musashi: **${userDB.conversationWithMusashi}**`
 		);
 

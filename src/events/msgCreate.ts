@@ -62,7 +62,7 @@ export default new Event("messageCreate", async (message) =>
 			}
 		)
 			.then(res => res.json())
-			.then((json) => 
+			.then(async (json) => 
 			{
 				if (json.error && json.estimated_time) 
 				{
@@ -78,6 +78,9 @@ export default new Event("messageCreate", async (message) =>
 				}
 				if (json.error) throw new Error(json.error);
 
+				await user.updateOne({
+					conversationWithMusashi: user.conversationWithMusashi + 1,
+				});
 				return message.reply({ content: json.generated_text, });
 			})
 			.catch((err) => 
