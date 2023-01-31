@@ -85,7 +85,13 @@ export default new Event("messageCreate", async (message) =>
 						.setFooter({
 							text: "Try chatting again after around 30s, that's how long the loading process usually takes!",
 						});
-					return message.reply({ embeds: [loading], });
+					return message.reply({ embeds: [loading], }).then((msg) => 
+					{
+						setTimeout(() => 
+						{
+							msg.delete();
+						}, 5000);
+					});
 				}
 				if (json.error) throw new Error(json.error);
 
@@ -103,16 +109,24 @@ export default new Event("messageCreate", async (message) =>
 				}
 
 				console.error(err);
-				return message.reply({
-					embeds: [
-						new EmbedBuilder()
-							.setColor("Red")
-							.setDescription(
-								`Encountered error while connecting to the API. Please retry or contact support using \`/musashi support\`\n\n` +
-									`[${err.name}] ${err.message}`
-							)
-					],
-				});
+				return message
+					.reply({
+						embeds: [
+							new EmbedBuilder()
+								.setColor("Red")
+								.setDescription(
+									`Encountered error while connecting to the API. Please retry or contact support using \`/musashi support\`\n\n` +
+										`[${err.name}] ${err.message}`
+								)
+						],
+					})
+					.then((msg) => 
+					{
+						setTimeout(() => 
+						{
+							msg.delete();
+						}, 5000);
+					});
 			});
 	};
 	respond();
