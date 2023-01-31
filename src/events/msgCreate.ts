@@ -1,15 +1,18 @@
 import { Event } from "../structures/Event";
 import Guild from "../schemas/Guild";
 import User from "../schemas/User";
-import { EmbedBuilder, TextChannel } from "discord.js";
+import { Collection, EmbedBuilder, TextChannel } from "discord.js";
 import { client } from "..";
 import fetch from "node-fetch";
+
+const Cooldown: Collection<string, number> = new Collection();
 
 export default new Event("messageCreate", async (message) => 
 {
 	/**
 	 * Loading and checking
 	 */
+	if (!message.member) return;
 	if (message.member.user.bot) return;
 	if (message.member.id === client.user.id) return;
 	if (!message.content) return;
@@ -24,6 +27,14 @@ export default new Event("messageCreate", async (message) =>
 	)) as TextChannel;
 	if (message.channelId !== channel.id) return;
 
+	/**
+	 * Cooldown
+	 */
+	if (Cooldown.has(message.guildId)) return;
+
+	/**
+	 * Processing
+	 */
 	message.channel.sendTyping();
 	let user = await User.findOne({ userId: message.member.id, });
 	if (!user) 
@@ -105,4 +116,10 @@ export default new Event("messageCreate", async (message) =>
 			});
 	};
 	respond();
+
+	Cooldown.set(message.guildId, Date.now() + 3000);
+	setTimeout(() => 
+	{
+		Cooldown.delete(message.guildId);
+	}, 4000);
 });
