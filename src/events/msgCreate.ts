@@ -4,6 +4,7 @@ import User from "../schemas/User";
 import { Collection, EmbedBuilder, TextChannel } from "discord.js";
 import { client } from "..";
 import fetch from "node-fetch";
+import ms from "ms";
 
 const Cooldown: Collection<string, number> = new Collection();
 
@@ -30,7 +31,29 @@ export default new Event("messageCreate", async (message) =>
 	/**
 	 * Cooldown
 	 */
-	if (Cooldown.has(message.guildId)) return;
+	if (Cooldown.has(message.guildId)) 
+	{
+		const cms = Cooldown.get(message.guildId);
+		const cooldown: EmbedBuilder = new EmbedBuilder()
+			.setColor("Red")
+			.setTitle("Slow Down!")
+			.setDescription(
+				`The server is on a \`${ms(cms - Date.now(), { long: true, })}\``
+			);
+		return message.reply({ embeds: [cooldown], }).then((msg) => 
+		{
+			setTimeout(() => 
+			{
+				msg.delete();
+			}, 3000);
+		});
+	}
+
+	Cooldown.set(message.guildId, Date.now() + 5000);
+	setTimeout(() => 
+	{
+		Cooldown.delete(message.guildId);
+	}, 5000);
 
 	/**
 	 * Processing
@@ -130,10 +153,4 @@ export default new Event("messageCreate", async (message) =>
 			});
 	};
 	respond();
-
-	Cooldown.set(message.guildId, Date.now() + 3000);
-	setTimeout(() => 
-	{
-		Cooldown.delete(message.guildId);
-	}, 4000);
 });
