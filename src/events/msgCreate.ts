@@ -38,7 +38,9 @@ export default new Event("messageCreate", async (message) =>
 			.setColor("Red")
 			.setTitle("Slow Down!")
 			.setDescription(
-				`The server is on a \`${ms(cms - Date.now(), { long: true, })}\``
+				`The server is on a \`${ms(cms - Date.now(), {
+					long: true,
+				})}\` cooldown`
 			);
 		return message.reply({ embeds: [cooldown], }).then((msg) => 
 		{
