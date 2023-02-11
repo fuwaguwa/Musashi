@@ -39,10 +39,10 @@ export class Musashi extends Client
 		this.connectToDatabase();
 		this.login(process.env.botToken);
 
-		async () => 
+		(async () => 
 		{
 			await this.startHeartbeat();
-		};
+		})();
 	}
 
 	private connectToDatabase() 
